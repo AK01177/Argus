@@ -7,3 +7,4 @@ class User(Base):
     github_id=Column(String, unique=True, index=True)
     username=Column(String, unique=True, index=True)
     email=Column(String, unique=True, index=True, nullable=True)
+    github_token=Column(String, nullable=True)
