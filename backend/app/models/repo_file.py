@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer, String
+
 from app.db import Base
+
 
 class RepoFile(Base):
     __tablename__="repo_files"

@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.sql import func
+
 from app.db import Base
+
 
 class Repo(Base):
     __tablename__="repos"
