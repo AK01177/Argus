@@ -1,10 +1,10 @@
-class codeparser:
+class Codeparser:
     """Base class"""
 
     def parse_file(self, file_path, content):
         raise NotImplementedError("Subclass must implement the parse_file method")
 
-class basicparser(codeparser):
+class Basicparser(Codeparser):
     "Prototype"
 
     def parse_file(self, file_path, content):
