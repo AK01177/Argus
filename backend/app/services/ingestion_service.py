@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.domain.ingestion import clone_repo_to_temp
 from app.domain.tree_walker import get_files_to_parse
 from app.providers.llm import GeminiProvider
-from app.repositories.repo_repository import RepoRepository
+from app.repositories.repo_repositories import RepoRepository
 
 from app.models.repo_file import RepoFile
 from app.models.file_summary import FileSummary
@@ -35,6 +35,15 @@ class IngestionService:
 
                 content_hash=hashlib.sha256(content.encode("utf-8")).hexdigest()
 
+                existing_file=self.db.query(RepoFile).filter(
+                    RepoFile.repo_id == repo.id,
+                    RepoFile.path == rel_path
+                ).first()
+
+                if existing_file:
+                    print(f"Skipping {rel_path}, already exists!")
+                    continue
+
                 repo_file=RepoFile(repo_id=repo.id, path=rel_path, content_hash=content_hash)
                 self.db.add(repo_file)
                 self.db.flush()
@@ -47,8 +56,9 @@ class IngestionService:
                     summary=summary_text
                 )
                 self.db.add(file_summary)
-
-            self.db.commit()
+                self.db.commit()
+                import time
+                time.sleep(15)
             print("Ingestion Complete")
 
         except Exception as e:

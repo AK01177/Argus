@@ -17,10 +17,15 @@ def get_files_to_parse(rep_path):
     spec = PathSpec.from_lines(GitWildMatchPattern, patterns)
     valid_files = []
 
+    bad_extensions=['.png', '.jpg', '.jpeg', '.gif', '.ico', '.svg', '.mp4', '.ttf', '.woff']
+
     for root, dirs, files in os.walk(rep_path):
         for file in files:
             full_path = os.path.join(root, file)
             relative_path = os.path.relpath(full_path, rep_path)
+
+            if any(relative_path.lower().endswith(ext) for ext in bad_extensions):
+                continue
 
             if not spec.match_file(relative_path):
                 valid_files.append(full_path)

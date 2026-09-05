@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FileTree from '../components/FileTree';
+
 import { 
   FolderTree, 
   Cpu, 
@@ -77,7 +79,10 @@ export default function Dashboard() {
             </p>
           </div>
         </div>
-
+        {/* --- NEW FILE TREE COMPONENT --- */}
+        <div className="mt-8 mb-8">
+          <FileTree repoId={1} />
+        </div>
         {/* Feature Grid Placeholders */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-all group">
