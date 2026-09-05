@@ -4,10 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.auth import router as auth_router
 from app.config import settings
 
-app=FastAPI(
-    title=settings.PROJECT_NAME,
-    description="Repo Companion",
-    version="0.0.1"
+app = FastAPI(
+    title=settings.PROJECT_NAME, description="Repo Companion", version="0.0.1"
 )
 
 app.add_middleware(
@@ -20,10 +18,11 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
 
+
 @app.get("/health")
 def health_check():
-    return{
+    return {
         "kesa_hai": "badhiya",
         "project": settings.PROJECT_NAME,
-        "environment": settings.ENVIRONMENT
+        "environment": settings.ENVIRONMENT,
     }
