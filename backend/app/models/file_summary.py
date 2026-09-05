@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
+
 from app.db import Base
+
 
 class FileSummary(Base):
     __tablename__ = "file_summaries"

@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
+
+from app.models.file_summary import FileSummary
 from app.models.repo import Repo
 from app.models.repo_file import RepoFile
-from app.models.file_summary import FileSummary
+
 
 class RepoRepository:
     def __init__(self, db: Session):
