@@ -8,8 +8,8 @@ class LLMProvider:
 
 class GeminiProvider(LLMProvider):
     def __init__(self):
-        self.client=genai.client()
-        self.model_name="gemini_3.5_flash"
+        self.client=genai.Client()
+        self.model_name="gemini-3.5-flash"
 
     def summarize_file(self, file_path: str, content: str)-> str:
         prompt=f"""What does this code foo? Give me one sentence answer
