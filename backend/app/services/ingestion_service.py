@@ -30,10 +30,10 @@ class IngestionService:
 
             for file_path in valid_files:
                 rel_path = os.path.relpath(file_path, temp_dir)
-                with open(file_path, "r", encoding="utf=8",errors="ignore") as f:
+                with open(file_path, "r", encoding="utf-8",errors="ignore") as f:
                     content=f.read()
 
-                content_hash=hashlib.sha256(content.encode("utf=8")).hexdigest()
+                content_hash=hashlib.sha256(content.encode("utf-8")).hexdigest()
 
                 repo_file=RepoFile(repo_id=repo.id, path=rel_path, content_hash=content_hash)
                 self.db.add(repo_file)
@@ -53,7 +53,7 @@ class IngestionService:
 
         except Exception as e:
             self.db.rollback()
-            print("Failed to process the Repo : {e}")
+            print(f"Failed to process the Repo : {e}")
         finally:
             if temp_dir and os.path.exists(temp_dir):
                 shutil.rmtree(temp_dir)
