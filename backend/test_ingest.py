@@ -1,4 +1,3 @@
-import os
 from dotenv import load_dotenv
 
 # This magic line loads everything from your .env file into the system environment

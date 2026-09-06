@@ -1,15 +1,16 @@
+import hashlib
 import os
 import shutil
-import hashlib
+
 from sqlalchemy.orm import Session
 
 from app.domain.ingestion import clone_repo_to_temp
 from app.domain.tree_walker import get_files_to_parse
+from app.models.file_summary import FileSummary
+from app.models.repo_file import RepoFile
 from app.providers.llm import GeminiProvider
 from app.repositories.repo_repositories import RepoRepository
 
-from app.models.repo_file import RepoFile
-from app.models.file_summary import FileSummary
 
 class IngestionService:
     def __init__(self, db:Session):
