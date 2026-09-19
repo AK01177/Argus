@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.auth import router as auth_router
 from app.api.repos import router as repos_router
+from app.api.chat import router as chat_router
 from app.config import settings
 
 app = FastAPI(
@@ -19,6 +20,7 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
 app.include_router(repos_router, prefix="/api/repos", tags=["Repos"])
+app.include_router(chat_router, prefix="/chat", tags=["Chat"])
 
 
 @app.get("/health")
