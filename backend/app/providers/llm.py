@@ -21,3 +21,14 @@ class GeminiProvider(LLMProvider):
             contents=prompt
         )
         return response.text.strip()
+
+    def embed_text(self, text:str) -> list[float]:
+        try:
+            result= self.client.models.embed_content(
+                model="text-embedding-004",
+                contents=text
+            )
+            return result.embeddings[0].values
+        except Exception as e:
+            print(f"Embedding Failed: {e}")
+            return [0.0] * 768

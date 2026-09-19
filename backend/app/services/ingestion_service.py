@@ -10,7 +10,9 @@ from app.models.file_summary import FileSummary
 from app.models.repo_file import RepoFile
 from app.providers.llm import GeminiProvider
 from app.repositories.repo_repositories import RepoRepository
-
+from app.domain.parser import TreeSitterParser
+from app.models.code_chunk import CodeChunk
+import time
 
 class IngestionService:
     def __init__(self, db:Session):
@@ -58,8 +60,28 @@ class IngestionService:
                 )
                 self.db.add(file_summary)
                 self.db.commit()
-                import time
-                time.sleep(15)
+
+                parser = TreeSitterParser()
+
+                chunks = parser.extract_chunks(file_path, content)
+
+                print(f"Extracted {len(chunks)} chunks from {rel_path}, Embedding....")
+
+                for chunk_text in chunks:
+                    time.sleep(5)
+
+                    embedding = self.llm.embed_text(chunk_text)
+
+                    code_chunk=CodeChunk(
+                        repo_file_id= repo_file.id,
+                        code_content= chunk_text,
+                        embedding=embedding
+                    )
+                    self.db.add(code_chunk)
+
+                self.db.commit()
+                print(f"Finished Embedding {rel_path}")
+
             print("Ingestion Complete")
 
         except Exception as e:

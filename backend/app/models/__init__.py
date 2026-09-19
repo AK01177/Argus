@@ -5,3 +5,4 @@ from .job import Job
 from .repo import Repo
 from .repo_file import RepoFile
 from .user import User
+from .code_chunk import CodeChunk

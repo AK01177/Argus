@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   db:
-    # TimescaleDB High Availability image includes many extensions, including pgvector
-    image: timescale/timescaledb-ha:pg15-latest
+    image: pgvector/pgvector:pg15
     container_name: argus_db
     environment:
       POSTGRES_USER: postgres
